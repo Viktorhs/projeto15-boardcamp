@@ -20,15 +20,17 @@ async function createCategorie(req, res){
     try {
 
         const validate = await connection.query(`
-        SELECT * FROM categories WHERE name = $1
+        SELECT * FROM categories WHERE name = $1;
         `, [req.body.name])
 
-        if(validate){
+        console.log(validate.rows[0])
+
+        if(validate.rows[0]){
             return res.sendStatus(409);
         }
 
         await connection.query(`
-        INSERT INTO categories (name) VALUES ($1)
+        INSERT INTO categories (name) VALUES ($1);
         `, [req.body.name]);
 
         res.sendStatus(201);
