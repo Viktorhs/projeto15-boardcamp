@@ -14,7 +14,6 @@ async function listGames(req, res){
         }
 
         if(search){
-            console.log(search.toLowerCase())
             games = await connection.query(`
             SELECT games.*, categories.name AS "categoryName" FROM games JOIN categories ON games."categoryId" = categories.id WHERE LOWER (games.name) LIKE $1;
             `, [`${search.toLowerCase()}%`]);
