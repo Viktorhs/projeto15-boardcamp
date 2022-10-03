@@ -43,7 +43,7 @@ async function searchCustomerId(req, res){
 
 async function createCustomer(req, res){
     const {name, phone, cpf, birthday} = req.body;
-    const isValid = gamesSchema.validate({name, phone, cpf, birthday}, {abortEarly: false});
+    const isValid = customerSchema.validate({name, phone, cpf, birthday}, {abortEarly: false});
     if(isValid.error) {
         return res.sendStatus(400);
     }
@@ -71,7 +71,7 @@ async function createCustomer(req, res){
 async function updateCustomer(req, res){
     const {id} = req.params;
     const {name, phone, cpf, birthday} = req.body;
-    const isValid = gamesSchema.validate({name, phone, cpf, birthday}, {abortEarly: false});
+    const isValid = customerSchema.validate({name, phone, cpf, birthday}, {abortEarly: false});
     if(isValid.error) {
         return res.sendStatus(400);
     }
@@ -80,8 +80,8 @@ async function updateCustomer(req, res){
         const isValidCpf = await connection.query(`
         SELECT * FROM customers WHERE cpf = $1;
         `, [cpf]);
-
-        if(isValidCpf.rows[0]){
+        
+        if(isValidCpf.rows[0].id !== Number(id) || !isValidCpf.rows[0]){
             return res.sendStatus(409);
         }
 

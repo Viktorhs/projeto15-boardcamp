@@ -4,7 +4,8 @@ import cors from "cors";
 
 import routerCategories from "./routes/categoriesRouters.js";
 import routerGames from "./routes/gamesRouters.js";
-import routerCustomers from "./routes/customersRouters.js"
+import routerCustomers from "./routes/customersRouters.js";
+import routerRetals from "./routes/rentalsRouters.js";
 
 dotenv.config()
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(routerCategories);
 app.use(routerGames);
 app.use(routerCustomers);
+app.use(routerRetals);
 
 app.listen(4000, () => {
     console.log('Server is listening on port 4000.');
