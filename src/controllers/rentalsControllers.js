@@ -97,7 +97,6 @@ async function listRentals(req, res){
             JOIN games ON rentals."gameId" = games.id
             JOIN categories ON games."categoryId" = categories.id;
         `)
-        console.log("finaç")
         }
 
         
